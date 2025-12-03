@@ -11,6 +11,9 @@ public class Shape : MonoBehaviour, IPointerClickHandler, IPointerUpHandler, IBe
 
     [HideInInspector]
     public ShapeData CurrentShapeData;
+
+    public int totalSquareNumber {get; set;}
+
     private List<GameObject> _currentShapeSquares = new List<GameObject>();
     private Vector3 _shapeStartScale;
     private RectTransform _transform;
@@ -27,6 +30,16 @@ public class Shape : MonoBehaviour, IPointerClickHandler, IPointerUpHandler, IBe
         shapeDragged = true;
         _startPosition = _transform.localPosition;
         _shapeActive = true;
+    }
+
+    void OnEnable()
+    {
+        GameEvent.MoveShapeBackToStartPosition += MoveShapeBackToStartPosition;
+    }
+
+    void OnDisable()
+    {
+        GameEvent.MoveShapeBackToStartPosition -= MoveShapeBackToStartPosition;
     }
 
     public bool IsOnStartPosition()
@@ -84,7 +97,7 @@ public class Shape : MonoBehaviour, IPointerClickHandler, IPointerUpHandler, IBe
     public void CreateShape(ShapeData shapeData)
     {
         CurrentShapeData = shapeData;
-        var totalSquareNumber = GetNumberOfSquares(shapeData);
+        totalSquareNumber = GetNumberOfSquares(shapeData);
 
         while (_currentShapeSquares.Count < totalSquareNumber)
         {
@@ -206,4 +219,8 @@ public class Shape : MonoBehaviour, IPointerClickHandler, IPointerUpHandler, IBe
     public void OnPointerDown(PointerEventData eventData)
     {
     } 
+    private void MoveShapeBackToStartPosition()
+    {
+        _transform.transform.localPosition = _startPosition;
+    }
 }
