@@ -16,6 +16,8 @@ public class Shape : MonoBehaviour, IPointerClickHandler, IPointerUpHandler, IBe
     private RectTransform _transform;
     private bool shapeDragged = true;
     private Canvas _canvas;
+    private Vector3 _startPosition;
+    private bool _shapeActive = true;
 
     public void Awake()
     {
@@ -23,6 +25,49 @@ public class Shape : MonoBehaviour, IPointerClickHandler, IPointerUpHandler, IBe
         _transform = this.GetComponent<RectTransform>();
         _canvas = GetComponentInParent<Canvas>();
         shapeDragged = true;
+        _startPosition = _transform.localPosition;
+        _shapeActive = true;
+    }
+
+    public bool IsOnStartPosition()
+    {
+        return _transform.localPosition == _startPosition;
+    }
+
+    public bool IsAnyOfShapeSquareActive()
+    {
+        foreach (var square in _currentShapeSquares)
+        {
+            if (square.gameObject.activeSelf)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void DeactivateShape()
+    {
+        if (_shapeActive)
+        {
+            foreach (var square in _currentShapeSquares)
+            {
+                square?.GetComponent<ShapeSquare>().DeactivateShape();
+            }
+            _shapeActive = false;
+        }
+    }
+
+    public void ActivateShape()
+    {
+        if (!_shapeActive)
+        {
+            foreach (var square in _currentShapeSquares)
+            {
+                square?.GetComponent<ShapeSquare>().ActivateShape();
+            }
+            _shapeActive = true;
+        }
     }
 
     void Start()
@@ -32,6 +77,7 @@ public class Shape : MonoBehaviour, IPointerClickHandler, IPointerUpHandler, IBe
 
     public void RequestNewShape(ShapeData shapeData)
     {
+        _transform.localPosition = _startPosition;
         CreateShape(shapeData);
     }
 
@@ -154,6 +200,7 @@ public class Shape : MonoBehaviour, IPointerClickHandler, IPointerUpHandler, IBe
     public void OnEndDrag(PointerEventData eventData)
     {
         this.GetComponent<RectTransform>().localScale = _shapeStartScale;
+        GameEvent.CheckIfShapeCanBePlaced?.Invoke();
     }
 
     public void OnPointerDown(PointerEventData eventData)
