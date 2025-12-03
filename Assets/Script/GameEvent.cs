@@ -7,4 +7,5 @@ public class GameEvent : MonoBehaviour
 {
     public static Action CheckIfShapeCanBePlaced;
     public static Action MoveShapeBackToStartPosition;
+    public static Action RequestNewShape;
 }

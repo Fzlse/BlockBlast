@@ -125,7 +125,21 @@ public class Grid : MonoBehaviour
             {
                 _gridSquares[squareIndex].GetComponent<GridSquare>().PlaceShapeOnBoard();
             }
+            var shapeLeft = 0;
+            foreach (var shape in shapeStorage.shapelist)
+            {
+                if (shape.IsOnStartPosition() && shape.IsAnyOfShapeSquareActive())
+                {
+                    shapeLeft++;
+                }              
+            }
             currentSelectedShape.DeactivateShape();
+
+            if (shapeLeft == 0)
+            {
+                GameEvent.RequestNewShape();
+            }
+            
         }
         else
         {
