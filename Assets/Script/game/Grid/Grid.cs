@@ -13,7 +13,7 @@ public class Grid : MonoBehaviour
     public float everySquareOffset = 0f;
     
     private Vector2 offset = new Vector2(0.0f, 0.0f);
-    private List<GameObject> gridSquare = new List<GameObject>();
+    private List<GameObject> _gridSquares = new List<GameObject>();
     void Start()
     {
         CreateGrid();
@@ -32,10 +32,10 @@ public class Grid : MonoBehaviour
         {
             for (var column = 0; column < columns; ++column)
             {
-                _gridSquare.Add(Instantiate(gridSquare)as GameObject);
-                _gridSquare[_gridSquare.Count - 1].transform.SetParent(this.transform);
-                _gridSquare[_gridSquare.Count - 1].transform.localPosition = new Vector3(squareScale, squareScale, squareScale);
-                _gridSquare[_gridSquare.Count - 1].GetComponent<GridSquare>().Setimage(square_index % 2 == 0);
+                _gridSquares.Add(Instantiate(gridSquare) as GameObject);
+                _gridSquares[_gridSquares.Count - 1].transform.SetParent(this.transform);
+                _gridSquares[_gridSquares.Count - 1].transform.localScale = new Vector3(squareScale, squareScale, squareScale);
+                _gridSquares[_gridSquares.Count - 1].GetComponent<GridSquare>().SetImage(square_index % 2 == 0);
                 square_index++;
             }
         }
@@ -48,14 +48,14 @@ public class Grid : MonoBehaviour
         Vector2 square_gap_number = new Vector2(0.0f, 0.0f);
         bool row_moved = false;
 
-        var square_rect = _gridSquare[0].GetComponent<RectTransform>();
+        var square_rect = _gridSquares[0].GetComponent<RectTransform>();
 
-        _offset.x = square_rect.rect.width * square_rect.transform.localScale.x + everySquareOffset;
-        _offset.y = square_rect.rect.height * square_rect.transform.localScale.y + everySquareOffset;
+        offset.x = square_rect.rect.width * square_rect.transform.localScale.x + everySquareOffset;
+        offset.y = square_rect.rect.height * square_rect.transform.localScale.y + everySquareOffset;
 
-        foreach (GameObject square in _gridSquare);
+        foreach (GameObject square in _gridSquares)
         {
-            if (column_number + 1 > columns)
+            if (column_number >= columns)
             {
                 square_gap_number.x = 0;
                 // Move to next row
@@ -64,8 +64,8 @@ public class Grid : MonoBehaviour
                 row_moved = false;   
             }
             
-            var pos_x_offset = _offset.x * column_number + (square_gap_number.x * squareGap);
-            var pos_y_offset = _offset.y * row_number + (square_gap_number.y * squareGap);
+            var pos_x_offset = offset.x * column_number + (square_gap_number.x * squareGap);
+            var pos_y_offset = offset.y * row_number + (square_gap_number.y * squareGap);
 
             if (column_number > 0 && column_number % 3 == 0)
             {
@@ -81,7 +81,8 @@ public class Grid : MonoBehaviour
             }
 
             square.GetComponent<RectTransform>().anchoredPosition = new Vector2(startPos.x + pos_x_offset, startPos.y - pos_y_offset);
-            squareGap.GetComponent<RectTransform>().localPosition = new Vector3(startPos.x + pos_x_offset, startPos.y - pos_y_offset, 0.0f);
+            square.GetComponent<RectTransform>().localPosition = new Vector3(square.GetComponent<RectTransform>().localPosition.x, square.GetComponent<RectTransform>().localPosition.y, 0.0f);
+            column_number++;
         }
     }
 }
