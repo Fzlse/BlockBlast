@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97e02980adb65c94ebe7eaafe9940566, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  squareShapeImagaePrefab: {fileID: 5708542888071481605, guid: d4d5bb2169cb3a44b853ab8526574aad, type: 3}
+  squareShapeImagePrefab: {fileID: 5708542888071481605, guid: d4d5bb2169cb3a44b853ab8526574aad, type: 3}
   shapeSelectedoScale: {x: 0.9, y: 0.9, z: 0.9}
   offset: {x: 0, y: 600}
   CurrentShapeData: {fileID: 11400000, guid: 0d1e5ef63ecf405489629787188076e6, type: 2}

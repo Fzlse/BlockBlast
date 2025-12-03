@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class Shape : MonoBehaviour, IPointerClickHandler, IPointerUpHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler
 {
-    public GameObject squareShapeImagaePrefab;
+    public GameObject squareShapeImagePrefab;
     public Vector3 shapeSelectedoScale;
     public Vector2 offset = new Vector2(0f, 700f);
 
@@ -113,7 +113,7 @@ public class Shape : MonoBehaviour, IPointerClickHandler, IPointerUpHandler, IBe
 
         while (_currentShapeSquares.Count < totalSquareNumber)
         {
-            _currentShapeSquares.Add(Instantiate(squareShapeImagaePrefab, transform) as GameObject);
+            _currentShapeSquares.Add(Instantiate(squareShapeImagePrefab, transform) as GameObject);
         }
         foreach (var square in _currentShapeSquares)
         {
@@ -121,7 +121,7 @@ public class Shape : MonoBehaviour, IPointerClickHandler, IPointerUpHandler, IBe
             square.gameObject.SetActive(false);
         }
 
-        var squareReact = squareShapeImagaePrefab.GetComponent<RectTransform>();
+        var squareReact = squareShapeImagePrefab.GetComponent<RectTransform>();
         var moveDistance = new Vector2(
             squareReact.rect.width * squareReact.transform.localScale.x,
             squareReact.rect.height * squareReact.transform.localScale.y
