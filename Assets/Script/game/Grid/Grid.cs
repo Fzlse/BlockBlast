@@ -133,11 +133,14 @@ public class Grid : MonoBehaviour
                     shapeLeft++;
                 }              
             }
-            currentSelectedShape.DeactivateShape();
 
             if (shapeLeft == 0)
             {
                 GameEvent.RequestNewShape();
+            }
+            else
+            {
+                GameEvent.SetShapeInactive();
             }
             
         }
