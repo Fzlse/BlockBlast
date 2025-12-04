@@ -259,7 +259,7 @@ public class Grid : MonoBehaviour
 
         if(validShape == 0)
         {
-            //GameEvent.GameOver(false);
+            GameEvent.GameOver(false);
             Debug.Log("Game Over");
         }
     }
