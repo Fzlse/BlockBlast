@@ -25,13 +25,16 @@ public class Grid : MonoBehaviour
     {
         GameEvent.CheckIfShapeCanBePlaced -= CheckIfShapeCanBePlaced;
         GameEvent.UpdateSquaresColor -= UpdateSquareColors;
+        GameEvent.CheckIfPlayerLost -= CheckIfPlayerLost;
     }
 
     private void OnEnable()
     {
         GameEvent.CheckIfShapeCanBePlaced += CheckIfShapeCanBePlaced;
         GameEvent.UpdateSquaresColor += UpdateSquareColors;
+        GameEvent.CheckIfPlayerLost += CheckIfPlayerLost;
     }
+    
     void Start()
     {
         _lineIndicator = GetComponent<LIneIndicator>();
@@ -245,7 +248,7 @@ public class Grid : MonoBehaviour
         var totalScore = 10 * completedLines;
         var bonusScore = ShouldPlayColorBonusAnimation();
         GameEvent.AddScore(totalScore + bonusScore);
-        CheckIfPlayerLost();
+        GameEvent.CheckIfPlayerLost();
     }
 
     private int ShouldPlayColorBonusAnimation()
