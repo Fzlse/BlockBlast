@@ -11,4 +11,5 @@ public class GameEvent : MonoBehaviour
     public static Action RequestNewShape;
     public static Action SetShapeInactive;
     public static Action<bool> GameOver;
+    public static Action<int, int> UpdateBestScoreBar;
 }
