@@ -19,6 +19,7 @@ public class Grid : MonoBehaviour
     public SquareTextureData squareTextureData;
 
     private Config.SquareColor currentActiveSquareColor_ = Config.SquareColor.notSet;
+    private List<Config.SquareColor> colorsInTheGrid_ = new List<Config.SquareColor>();
 
     private void OnDisable()
     {
@@ -41,6 +42,25 @@ public class Grid : MonoBehaviour
     private void UpdateSquareColors(Config.SquareColor color)
     {
         currentActiveSquareColor_ = color;
+    }
+
+    private List<Config.SquareColor> GetAllColorsInTheGrid()
+    {
+        var colors = new List<Config.SquareColor>();
+
+        foreach (var square in _gridSquares)
+        {
+            var gridSquare = square.GetComponent<GridSquare>();
+            if (gridSquare.SquareOccupied)
+            {
+                var color = gridSquare.GetCurrentColor();
+                if(colors.Contains(color) == false)
+                {
+                    colors.Add(color);
+                }
+            }
+        }
+        return colors;
     }
     
 
@@ -168,6 +188,21 @@ public class Grid : MonoBehaviour
 
     void CheckIfCompletedLines()
     {
+        if (_lineIndicator == null)
+        {
+            Debug.LogError("CheckIfCompletedLines: LIneIndicator component is missing");
+            return;
+        }
+        if (_gridSquares == null || _gridSquares.Count == 0)
+        {
+            Debug.LogWarning("CheckIfCompletedLines: grid squares not initialized");
+            return;
+        }
+        if (_lineIndicator.lineData == null || _lineIndicator.squareData == null || _lineIndicator.columnIndexes == null)
+        {
+            Debug.LogError("CheckIfCompletedLines: line indicator data arrays are null");
+            return;
+        }
         List<int[]> lines = new List<int[]>();
         
         //col
@@ -199,6 +234,8 @@ public class Grid : MonoBehaviour
             }
             lines.Add(data.ToArray());
         }
+        //fungsi ini perlu dipanggil sebelum check completed lines
+        colorsInTheGrid_ = GetAllColorsInTheGrid();
 
         var completedLines = CheckIfSquareAreCompleted(lines);
         if (completedLines >= 1)
@@ -206,8 +243,35 @@ public class Grid : MonoBehaviour
             GameEvent.ShowCongratulationWritings();
         }
         var totalScore = 10 * completedLines;
-        GameEvent.AddScore(totalScore);
+        var bonusScore = ShouldPlayColorBonusAnimation();
+        GameEvent.AddScore(totalScore + bonusScore);
         CheckIfPlayerLost();
+    }
+
+    private int ShouldPlayColorBonusAnimation()
+
+    {
+        var colorsInTheGridAfterLineRemoved = GetAllColorsInTheGrid();
+        Config.SquareColor colorToPlayBonusFor = Config.SquareColor.notSet;
+
+        foreach (var squareColor in colorsInTheGrid_)
+        {
+            if (colorsInTheGridAfterLineRemoved.Contains(squareColor) == false)
+            {
+                colorToPlayBonusFor = squareColor;
+            }
+        }
+
+        // Award bonus only when a color disappeared
+        if (colorToPlayBonusFor == Config.SquareColor.notSet)
+        {
+            return 0;
+        }
+
+        // Show bonus for the disappeared color (including currentActiveSquareColor_)
+        GameEvent.ShowBonusScreen(colorToPlayBonusFor);
+        Debug.Log("Bonus: color disappeared " + colorToPlayBonusFor.ToString());
+        return 50;
     }
 
     private int CheckIfSquareAreCompleted(List<int[]> data)
