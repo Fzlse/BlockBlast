@@ -1170,6 +1170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76cb93d02c34b6047b175205b6641190, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  squareTextureData: {fileID: 11400000, guid: 198055499edfe1446b298b550e2d6d83, type: 2}
   scoreTextMesh: {fileID: 1135902985}
 --- !u!224 &1089966798 stripped
 RectTransform:
