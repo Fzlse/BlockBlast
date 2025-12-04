@@ -692,6 +692,8 @@ GameObject:
   - component: {fileID: 1088628433}
   - component: {fileID: 1088628432}
   - component: {fileID: 1088628431}
+  - component: {fileID: 1088628436}
+  - component: {fileID: 1088628435}
   m_Layer: 5
   m_Name: Settings Button hide
   m_TagString: Untagged
@@ -788,6 +790,30 @@ MonoBehaviour:
           m_StringArgument: CloseSettings
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1088628432}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+        m_MethodName: set_interactable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1088628436}
+        m_TargetAssemblyTypeName: MenuAnimationCotroller, Assembly-CSharp
+        m_MethodName: playAnimation
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: CloseSettings
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1088628433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -826,6 +852,40 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1088628429}
   m_CullTransparentMesh: 1
+--- !u!95 &1088628435
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1088628429}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 456e33813c7fc814d9a9cad8e4e2999d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1088628436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1088628429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 534bcba8b3c654b4bb3d221a5ac9d8c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1088628435}
 --- !u!1 &1095318046
 GameObject:
   m_ObjectHideFlags: 0
@@ -914,6 +974,8 @@ GameObject:
   - component: {fileID: 1219306694}
   - component: {fileID: 1219306693}
   - component: {fileID: 1219306696}
+  - component: {fileID: 1219306698}
+  - component: {fileID: 1219306697}
   m_Layer: 5
   m_Name: Settings Button show
   m_TagString: Untagged
@@ -996,6 +1058,30 @@ MonoBehaviour:
           m_StringArgument: OpenSettings
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1219306693}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+        m_MethodName: set_interactable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1219306698}
+        m_TargetAssemblyTypeName: MenuAnimationCotroller, Assembly-CSharp
+        m_MethodName: playAnimation
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: OpenSettings
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1219306694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1048,6 +1134,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OpenSettingsButton: {fileID: 1219306693}
   CloseSettingsButton: {fileID: 1088628432}
+--- !u!95 &1219306697
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1219306691}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 456e33813c7fc814d9a9cad8e4e2999d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1219306698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1219306691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 534bcba8b3c654b4bb3d221a5ac9d8c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1219306697}
 --- !u!1 &1251455672
 GameObject:
   m_ObjectHideFlags: 0
