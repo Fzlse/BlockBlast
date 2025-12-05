@@ -60,6 +60,8 @@ public class Score : MonoBehaviour
 
     public void SaveBestScore(bool isNewBestScore)
     {
+        PlayerPrefs.SetInt("lastScore", currentScore_);
+        PlayerPrefs.Save();
         BinaryDataStream.Save<BestScoreData>(bestScores_, bestScoreKey_);
     }
 

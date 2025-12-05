@@ -230,6 +230,7 @@ public class Shape : MonoBehaviour, IPointerClickHandler, IPointerUpHandler, IBe
     {
         this.GetComponent<RectTransform>().localScale = _shapeStartScale;
         GameEvent.CheckIfShapeCanBePlaced?.Invoke();
+        SoundManager.Instance.PlaySFX(SoundManager.Instance.sfxClips[0]);
     }
 
     public void OnPointerDown(PointerEventData eventData)
