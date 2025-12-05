@@ -209,17 +209,21 @@ public class Shape : MonoBehaviour, IPointerClickHandler, IPointerUpHandler, IBe
 
     public void OnDrag(PointerEventData eventData)
     {
-        _transform.anchorMin = new Vector2(0, 0);
-        _transform.anchorMax = new Vector2(0, 0);
-        _transform.pivot = new Vector2(0, 0);
+        Camera useCam = null;
+        if (_canvas.renderMode == RenderMode.ScreenSpaceCamera || _canvas.renderMode == RenderMode.WorldSpace)
+        {
+            useCam = eventData.pressEventCamera != null ? eventData.pressEventCamera : Camera.main;
+        }
 
-        Vector2 pos;
+        Vector2 localPoint;
+        RectTransform canvasRect = _canvas.transform as RectTransform;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            _canvas.transform as RectTransform,
+            canvasRect,
             eventData.position,
-            Camera.main,
-            out pos);
-        _transform.localPosition = pos + offset;
+            useCam,
+            out localPoint);
+
+        _transform.anchoredPosition = localPoint + offset;
     }
 
     public void OnEndDrag(PointerEventData eventData)
